@@ -35,24 +35,20 @@
 	<script>
 	    $(document).ready(function(){
 			$("button").click(function(){
-			   var t = $('#temp').val();//celsius
-			   var u = $('#unit').val();
+				var t = $('#temp').val();//celsius
+				var t = parseInt(t);
+				var u = $('#unit').val();
 			   
-			   var t1;
-			   var u1;
+				var t1;
+				var u1;
 			   
-			   if(u == "F"){
-					t1 = t * (9/5) + 32;
-					u1 = "Fahrenheit";
-			   }else if(u == "K"){
-					t1 =  t + 273.15;
-					u1 = "Réaumur";
-			   }else if(u == "R"){
-					t1 = t * (4/5);
-					u1 = "Kelvin";
+				var con = conversion(t,u);
+				if(con.status == 0){
+					alert(con.message);
+				}
+				else{
+					alert(con.message);
 			   }
-			   
-			   alert("Temperature is "+t1+" in "+u1);
 			});
 		});
 		function validate(t){
@@ -66,6 +62,28 @@
                     return {"status":0,"message":msg};     
 				}
                
+		}
+		function conversion(t,u){
+				var chk = validate(t);
+				if(chk != null)return chk;
+				
+				var t1;
+				var u1;
+               
+				if(u == "F"){
+                    t1 = t * (9/5) + 32;
+                    u1 = "Fahrenheit";
+				}
+				else if(u == "K"){
+                    t1 =  t + 273.15;
+                    u1 = "Kelvin";
+				}
+				else if(u == "R"){
+                    t1 = t * (4/5);
+                    u1 = "Réaumur";
+				}
+				msg = "Temperature is "+t1+" in "+u1+"";
+				return{"status":1,"message":msg};
 		}
 	</script>
 </body>
